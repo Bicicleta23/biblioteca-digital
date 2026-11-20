@@ -1,0 +1,1 @@
+{% extends "biblioteca/base.html" %}{% block contenido %}<h2>Eliminar libro</h2><p>¿Confirmas eliminar «{{ libro.titulo }}»?</p><form method="post">{% csrf_token %}<button type="submit">Sí, eliminar</button> <a href="{% url 'biblioteca:lista' %}">Cancelar</a></form>{% endblock %}

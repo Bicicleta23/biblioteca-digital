@@ -1,0 +1,1 @@
+{% extends "biblioteca/base.html" %}{% block contenido %}<h2>{{ accion }} libro</h2><form method="post">{% csrf_token %}{{ formulario.as_p }}<button type="submit">Guardar</button> <a href="{% url 'biblioteca:lista' %}">Cancelar</a></form>{% endblock %}

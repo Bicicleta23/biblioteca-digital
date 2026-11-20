@@ -1,0 +1,4 @@
+{% extends "biblioteca/base.html" %}{% block contenido %}<h2>Catálogo de libros</h2>
+{% if puede_gestionar %}<a class="btn" href="{% url 'biblioteca:crear' %}">Agregar libro</a>{% endif %}
+<table><thead><tr><th>ID</th><th>Título</th><th>Autor</th><th>Estado</th>{% if puede_gestionar %}<th>Acciones</th>{% endif %}</tr></thead><tbody>
+{% for libro in libros %}<tr><td>{{ libro.id }}</td><td>{{ libro.titulo }}</td><td>{{ libro.autor }}</td><td>{% if libro.disponible %}Disponible{% else %}Prestado{% endif %}</td>{% if puede_gestionar %}<td><a href="{% url 'biblioteca:editar' libro.id %}">Editar</a> · <a href="{% url 'biblioteca:eliminar' libro.id %}">Eliminar</a></td>{% endif %}</tr>{% empty %}<tr><td colspan="5">No hay libros registrados.</td></tr>{% endfor %}</tbody></table>{% endblock %}

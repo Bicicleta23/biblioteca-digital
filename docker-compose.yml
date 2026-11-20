@@ -1,0 +1,33 @@
+
+services:
+  web:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      DJANGO_SECRET_KEY: "${DJANGO_SECRET_KEY:?Configura DJANGO_SECRET_KEY en .env}"
+      DJANGO_DEBUG: "${DJANGO_DEBUG:-False}"
+      DJANGO_ALLOWED_HOSTS: "${DJANGO_ALLOWED_HOSTS:-localhost,127.0.0.1}"
+      DJANGO_CSRF_TRUSTED_ORIGINS: "${DJANGO_CSRF_TRUSTED_ORIGINS:-}"
+      DJANGO_DB_PATH: /data/db.sqlite3
+      NODE_SERVICE_URL: http://node:3000
+    volumes:
+      - biblioteca_data:/data
+    depends_on:
+      - node
+    restart: unless-stopped
+
+  node:
+    build:
+      context: ./microservicio-node
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: production
+      PORT: "3000"
+      OLLAMA_URL: http://host.docker.internal:11434
+      OLLAMA_MODEL: llama3.2:3b
+    restart: unless-stopped
+
+volumes:
+  biblioteca_data:

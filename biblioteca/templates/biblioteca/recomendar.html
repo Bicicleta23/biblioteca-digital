@@ -1,0 +1,43 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Recomendaciones con IA</title>
+</head>
+<body>
+    <h1>Biblioteca Digital - Inteligencia Artificial</h1>
+
+    <p>
+        Escribe un género literario y recibe una
+        recomendación generada con inteligencia artificial.
+    </p>
+
+    <form method="post">
+        {% csrf_token %}
+
+        <label for="genero">Género literario:</label>
+        <input
+            type="text"
+            id="genero"
+            name="genero"
+            value="{{ genero }}"
+            required
+        >
+
+        <button type="submit">
+            Generar recomendación
+        </button>
+    </form>
+
+    {% if recomendacion %}
+        <h2>Recomendación de la IA</h2>
+        <p>{{ recomendacion|linebreaksbr }}</p>
+    {% endif %}
+
+    {% if error %}
+        <p style="color: red;">{{ error }}</p>
+    {% endif %}
+</body>
+</html>
